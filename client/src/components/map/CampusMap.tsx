@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CAMPUS_LOCATIONS, JIET_GOOGLE_MAPS_URL } from '../../data/locations';
-import { ZoomIn, ZoomOut, RotateCcw, ExternalLink, MapPin } from 'lucide-react';
+import { CAMPUS_LOCATIONS } from '../../data/locations';
+import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 interface CampusMapProps {
   routeNodes?: string[];
@@ -28,24 +28,10 @@ export const CampusMap: React.FC<CampusMapProps> = ({
 
   return (
     <div className="relative w-full h-full min-h-[380px] bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-card flex items-center justify-center select-none">
-      {/* Map Header Title Badge & Google Maps Link */}
-      <div className="absolute top-4 left-4 z-20 flex flex-wrap items-center gap-2">
-        <div className="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 shadow-sm flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span>JIET Campus Map (Jodhpur)</span>
-        </div>
-
-        <a
-          href={JIET_GOOGLE_MAPS_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Open exact JIET location on Google Maps"
-          className="bg-white/95 hover:bg-white backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-blue-700 hover:text-blue-800 shadow-sm flex items-center gap-1.5 transition-all cursor-pointer"
-        >
-          <MapPin className="w-3.5 h-3.5 text-rose-600" />
-          <span>Google Maps</span>
-          <ExternalLink className="w-3 h-3 text-slate-400" />
-        </a>
+      {/* Map Header Title Badge */}
+      <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 shadow-sm flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+        <span>JIET Campus Map (Jodhpur)</span>
       </div>
 
       {/* Zoom Controls */}
