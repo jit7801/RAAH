@@ -76,54 +76,116 @@ Respond strictly with valid JSON only, using this schema:
   };
 }
 
-function performHeuristicNLU(query: string): NLUAnalysisResult | null {
-  // Check ambiguous lab query
-  if (query === 'lab' || query === 'lab kaha hai' || query === 'lab kidhar hai' || query === 'where is lab') {
+function performHeuristicNLU(userQuery: string): NLUAnalysisResult | null {
+  const cleanQuery = userQuery
+    .toLowerCase()
+    .replace(/[.,?!।]/g, '')
+    .trim();
+
+  // 1. Direct ambiguous lab check
+  if (cleanQuery === 'lab' || cleanQuery === 'lab kaha' || cleanQuery.includes('lab kaha') || cleanQuery === 'लैब' || cleanQuery === 'where is lab') {
     return {
       intent: 'ambiguous',
       destination_name: null,
       destination_node_id: null,
       course_query: null,
-      language: query.includes('where') ? 'english' : 'hinglish',
+      language: 'hinglish',
       ambiguous_options: ["CSE Lab 1", "Mechanical Workshop Lab", "Electrical Lab"],
-      response_text: "Aap kaun sa lab dhundh rahe hain?",
+      response_text: "Aap kaun sa lab dhundh rahe हैं? (CSE Lab, Mechanical Workshop, ya Electrical Lab)",
       confidence: 0.95
     };
   }
 
-  // Check course/classroom queries (Field research case)
-  if (query.includes('dbms') || query.includes('cs301')) {
-    const dbmsClass = INITIAL_CLASSROOMS.find(c => c.course_code === 'CS301');
-    const loc = INITIAL_LOCATIONS.find(l => l.room_number === 'C-103' || l.id === dbmsClass?.location_id);
+  // 2. Direct ambiguous hostel check
+  if (cleanQuery === 'hostel' || cleanQuery === 'hostel kaha' || cleanQuery === 'हॉस्टल') {
+    return {
+      intent: 'ambiguous',
+      destination_name: null,
+      destination_node_id: null,
+      course_query: null,
+      language: 'hinglish',
+      ambiguous_options: ["Tagore Boys Hostel", "Gargi Girls Hostel"],
+      response_text: "Aap kaun sa hostel dhundh rahe hain? (Tagore Boys Hostel ya Gargi Girls Hostel)",
+      confidence: 0.95
+    };
+  }
+
+  // 3. Dynamic course / classroom lookup (e.g. DBMS, CS301, OS)
+  if (cleanQuery.includes('dbms') || cleanQuery.includes('cs301')) {
+    const targetNode = 'classroom_a101';
+    const loc = INITIAL_LOCATIONS.find(l => l.node_id === targetNode);
     return {
       intent: 'navigate',
-      destination_name: loc?.name || "Classroom C-103",
-      destination_node_id: loc?.node_id || "classroom_c103",
+      destination_name: loc?.name || "Classroom A-101",
+      destination_node_id: targetNode,
       course_query: "DBMS",
       language: 'hinglish',
-      response_text: "Today's DBMS class is in Classroom C-103 (Block C, 1st Floor). Showing route!",
-      confidence: 0.95
+      response_text: "Today's DBMS class is in Classroom A-101 (Main Academic Block, Floor 1). Route generated below!",
+      confidence: 0.98
     };
   }
 
-  // Match location by aliases or name
-  for (const loc of INITIAL_LOCATIONS) {
-    for (const alias of loc.aliases) {
-      if (query.includes(alias.toLowerCase())) {
-        const lang: 'hindi' | 'english' | 'hinglish' =
-          query.includes('where') ? 'english' : (query.includes('kaha') || query.includes('kidhar') ? 'hinglish' : 'hindi');
+  // 4. Token Normalization (Devanagari to Phonetic English + Stopwords filter)
+  let normalized = cleanQuery
+    .replace(/सीएसई|कंप्यूटर/g, 'cse computer')
+    .replace(/कलाम/g, 'kalam')
+    .replace(/लाइब्रेरी|पुस्तकालय/g, 'library')
+    .replace(/कैंटीन|कंटीन|खाना|कैफे/g, 'canteen')
+    .replace(/ऑडिटोरियम|विश्वेश्वरैया|ऑडी/g, 'auditorium')
+    .replace(/मैकेनिकल|मेकैनिकल/g, 'mechanical')
+    .replace(/इलेक्ट्रिकल/g, 'electrical')
+    .replace(/एडमिन|कार्यालय|प्रशासन|फीस/g, 'admin')
+    .replace(/हॉस्टल|टैगोर|गार्गी/g, 'hostel tagore gargi')
+    .replace(/लैब|वर्कशॉप/g, 'lab workshop')
+    .replace(/ब्लॉक/g, 'block')
+    .replace(/डिपार्टमेंट|विभाग/g, 'department')
+    .replace(/स्पोर्ट्स|मैदान|क्रिकेट/g, 'sports cricket')
+    .replace(/गेट|द्वार|मुख्य/g, 'gate main')
+    .replace(/मेडिकल|डिस्पेंसरी|डॉक्टर/g, 'medical dispensary');
 
-        return {
-          intent: 'navigate',
-          destination_name: loc.name,
-          destination_node_id: loc.node_id,
-          course_query: null,
-          language: lang,
-          response_text: `${loc.name} is in ${loc.building} (Floor ${loc.floor}). Route generated below!`,
-          confidence: 0.9
-        };
-      }
+  let bestMatch: { location: typeof INITIAL_LOCATIONS[0]; score: number } | null = null;
+
+  for (const loc of INITIAL_LOCATIONS) {
+    let score = 0;
+    const nameLower = loc.name.toLowerCase();
+    const buildingLower = loc.building.toLowerCase();
+    const nodeLower = loc.node_id.toLowerCase();
+    const aliasesLower = loc.aliases.map(a => a.toLowerCase());
+
+    // Check direct substring matches on aliases or names
+    if (aliasesLower.some(alias => cleanQuery.includes(alias) || alias.includes(cleanQuery) || normalized.includes(alias))) {
+      score += 80;
     }
+
+    if (nameLower.includes(cleanQuery) || cleanQuery.includes(nameLower)) {
+      score += 90;
+    }
+
+    // Token intersection check
+    const queryTokens = normalized.split(/\s+/).filter(t => t.length > 1);
+    for (const token of queryTokens) {
+      if (nodeLower.includes(token)) score += 35;
+      if (nameLower.includes(token)) score += 30;
+      if (buildingLower.includes(token)) score += 25;
+      if (aliasesLower.some(a => a.includes(token))) score += 30;
+    }
+
+    if (score > (bestMatch?.score || 0)) {
+      bestMatch = { location: loc, score };
+    }
+  }
+
+  if (bestMatch && bestMatch.score >= 25) {
+    const loc = bestMatch.location;
+    return {
+      intent: 'navigate',
+      destination_name: loc.name,
+      destination_node_id: loc.node_id,
+      course_query: null,
+      language: 'hinglish',
+      response_text: `${loc.name} (${loc.building}, Floor ${loc.floor}) found! Route generated below.`,
+      confidence: 0.95
+    };
   }
 
   return null;
