@@ -4,8 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useNavigation } from '../context/NavigationContext';
 import { useVoiceInput } from '../hooks/useVoiceInput';
 import { CampusMap } from '../components/map/CampusMap';
-import { Search, Mic, ArrowRight, Compass, Sparkles, MapPin, CheckCircle2, GraduationCap, ExternalLink } from 'lucide-react';
-import { JIET_GOOGLE_MAPS_URL } from '../data/locations';
+import { Search, Mic, ArrowRight, Compass, Sparkles, MapPin, CheckCircle2, GraduationCap } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const { t } = useLanguage();
@@ -42,16 +41,6 @@ export const HomePage: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold mb-4 shadow-xs">
           <GraduationCap className="w-4 h-4 text-blue-600" />
           <span>JIET Campus, Jodhpur (Rajasthan)</span>
-          <a
-            href={JIET_GOOGLE_MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Open JIET Jodhpur on Google Maps"
-            className="ml-1 inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 underline font-medium"
-          >
-            <span>Google Maps Pin</span>
-            <ExternalLink className="w-3 h-3" />
-          </a>
         </div>
 
         {/* Main Headline */}
@@ -124,7 +113,7 @@ export const HomePage: React.FC = () => {
       {/* Campus Map Section */}
       <section className="max-w-6xl mx-auto px-4">
         <div className="surface-card p-4 md:p-6 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-bold text-slate-900 font-display flex items-center gap-2">
                 <Compass className="w-5 h-5 text-navy-800" />
@@ -132,25 +121,13 @@ export const HomePage: React.FC = () => {
               </h2>
               <p className="text-xs text-slate-500">Select any department or facility to generate indoor-outdoor walking directions</p>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <a
-                href={JIET_GOOGLE_MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary text-xs py-1.5 px-3 flex items-center gap-1.5 text-blue-700 hover:text-blue-800"
-              >
-                <MapPin className="w-3.5 h-3.5 text-rose-600" />
-                <span>Google Maps Pin</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <button
-                onClick={() => navigate('/navigate')}
-                className="btn-primary text-xs py-1.5 px-3"
-              >
-                <span>Full Map</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+            <button
+              onClick={() => navigate('/navigate')}
+              className="btn-secondary text-xs py-1.5 px-3"
+            >
+              <span>Full Map</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </div>
 
           <div className="h-[360px] w-full rounded-lg overflow-hidden border border-slate-200">

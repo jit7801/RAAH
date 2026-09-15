@@ -18,8 +18,6 @@ export interface LocationItem {
   is_active: boolean;
 }
 
-export const JIET_GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/1KHgcyhYGt4gmdzG7';
-
 export const CAMPUS_LOCATIONS: LocationItem[] = [
   {
     id: "jiet-1",
@@ -34,7 +32,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 120,
     map_y: 530,
     node_id: "main_gate",
-    aliases: ["main gate", "jiet gate", "pali road gate", "mukhya dwar", "entry gate", "security gate"],
+    aliases: ["main gate", "jiet gate", "pali road gate", "mukhya dwar", "entry gate", "security gate", "gate", "गेट", "मुख्य द्वार", "प्रवेश द्वार"],
     opening_hours: "24/7 Security",
     is_active: true
   },
@@ -51,7 +49,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 230,
     map_y: 200,
     node_id: "library",
-    aliases: ["library", "kalam library", "central library", "pustakalaya", "lib", "reading hall"],
+    aliases: ["library", "kalam library", "central library", "pustakalaya", "lib", "reading hall", "लाइब्रेरी", "पुस्तकालय", "कलाम लाइब्रेरी", "सेंट्रल लाइब्रेरी"],
     opening_hours: "8:00 AM - 9:00 PM",
     is_active: true
   },
@@ -68,7 +66,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 430,
     map_y: 200,
     node_id: "cse_dept",
-    aliases: ["cse", "cse dept", "computer science", "comp sci", "cs department"],
+    aliases: ["cse", "cse dept", "computer science", "comp sci", "cs department", "cs dept", "सीएसई", "कंप्यूटर साइंस", "सीएसई विभाग", "कंप्यूटर साइंस विभाग"],
     opening_hours: "8:30 AM - 4:30 PM",
     is_active: true
   },
@@ -85,7 +83,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 430,
     map_y: 150,
     node_id: "aids_dept",
-    aliases: ["ai ds", "aids", "ai department", "data science", "machine learning dept"],
+    aliases: ["ai ds", "aids", "ai department", "data science", "machine learning dept", "एआई", "डेटा साइंस", "एआई विभाग"],
     opening_hours: "8:30 AM - 4:30 PM",
     is_active: true
   },
@@ -102,7 +100,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 630,
     map_y: 200,
     node_id: "mech_dept",
-    aliases: ["mechanical", "mech", "me dept", "mechanical department"],
+    aliases: ["mechanical", "mech", "me dept", "mechanical department", "मैकेनिकल", "मेकैनिकल", "मैकेनिकल विभाग"],
     opening_hours: "8:30 AM - 4:30 PM",
     is_active: true
   },
@@ -119,7 +117,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 400,
     map_y: 380,
     node_id: "auditorium",
-    aliases: ["auditorium", "visvesvaraya audi", "audi", "main hall", "seminar hall"],
+    aliases: ["auditorium", "visvesvaraya audi", "audi", "main hall", "seminar hall", "ऑडिटोरियम", "विश्वेश्वरैया", "ऑडी"],
     opening_hours: "As per event schedule",
     is_active: true
   },
@@ -136,7 +134,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 230,
     map_y: 380,
     node_id: "canteen",
-    aliases: ["canteen", "cafeteria", "jiet canteen", "khana", "food court", "chai kachori"],
+    aliases: ["canteen", "cafeteria", "jiet canteen", "khana", "food court", "chai kachori", "mess", "कैंटीन", "कंटीन", "खाना", "कैफे"],
     opening_hours: "7:30 AM - 8:30 PM",
     is_active: true
   },
@@ -153,7 +151,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 400,
     map_y: 330,
     node_id: "admin_office",
-    aliases: ["admin", "administration", "office", "fee counter", "accounts window", "registrar"],
+    aliases: ["admin", "administration", "office", "fee counter", "accounts window", "registrar", "admin office", "एडमिन", "कार्यालय", "प्रशासन", "फीस काउंटर"],
     opening_hours: "9:00 AM - 4:30 PM",
     is_active: true
   },
@@ -171,7 +169,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 460,
     map_y: 180,
     node_id: "cse_lab1",
-    aliases: ["cse lab", "computer lab", "programming lab", "a102", "lab 1"],
+    aliases: ["cse lab", "computer lab", "programming lab", "a102", "lab 1", "सीएसई लैब", "कंप्यूटर लैब", "लैब 1", "ए102"],
     opening_hours: "8:30 AM - 5:00 PM",
     is_active: true
   },
@@ -189,7 +187,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 430,
     map_y: 130,
     node_id: "ai_lab",
-    aliases: ["ai lab", "iot lab", "a204", "gpu lab", "robotics lab"],
+    aliases: ["ai lab", "iot lab", "a204", "gpu lab", "robotics lab", "एआई लैब", "आईओटी लैब", "ए204"],
     opening_hours: "8:30 AM - 5:30 PM",
     is_active: true
   },
@@ -207,7 +205,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 650,
     map_y: 230,
     node_id: "mech_lab",
-    aliases: ["mech lab", "workshop", "mechanical workshop", "cnc shop", "c001"],
+    aliases: ["mech lab", "workshop", "mechanical workshop", "cnc shop", "c001", "mechanical lab", "वर्कशॉप", "मैकेनिकल वर्कशॉप", "मैकेनिकल लैब", "सी001"],
     opening_hours: "8:30 AM - 4:30 PM",
     is_active: true
   },
@@ -225,7 +223,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 650,
     map_y: 380,
     node_id: "elec_lab",
-    aliases: ["electrical lab", "ee lab", "machines lab", "e101"],
+    aliases: ["electrical lab", "ee lab", "machines lab", "e101", "electrical machine lab", "इलेक्ट्रिकल लैब", "मशीन लैब", "ई101"],
     opening_hours: "8:30 AM - 4:30 PM",
     is_active: true
   },
@@ -243,7 +241,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 430,
     map_y: 170,
     node_id: "classroom_a101",
-    aliases: ["a101", "lt101", "a-101", "lt-101", "class a101"],
+    aliases: ["a101", "lt101", "a-101", "lt-101", "class a101", "classroom a101", "ए101", "एलटी 101"],
     opening_hours: "8:00 AM - 5:00 PM",
     is_active: true
   },
@@ -261,7 +259,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 630,
     map_y: 160,
     node_id: "classroom_b202",
-    aliases: ["b202", "lt202", "b-202", "lt-202", "class b202"],
+    aliases: ["b202", "lt202", "b-202", "lt-202", "class b202", "classroom b202", "बी202", "एलटी 202"],
     opening_hours: "8:00 AM - 5:00 PM",
     is_active: true
   },
@@ -278,7 +276,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 120,
     map_y: 200,
     node_id: "tagore_hostel",
-    aliases: ["tagore hostel", "boys hostel", "hostel", "boys residence"],
+    aliases: ["tagore hostel", "boys hostel", "hostel", "boys residence", "tagore", "टैगोर हॉस्टल", "बॉयज हॉस्टल", "हॉस्टल"],
     opening_hours: "24/7 Resident Access",
     is_active: true
   },
@@ -295,7 +293,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 120,
     map_y: 260,
     node_id: "gargi_hostel",
-    aliases: ["gargi hostel", "girls hostel", "girls residence"],
+    aliases: ["gargi hostel", "girls hostel", "girls residence", "gargi", "गार्गी हॉस्टल", "गर्ल्स हॉस्टल"],
     opening_hours: "24/7 Resident Access",
     is_active: true
   },
@@ -313,7 +311,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 260,
     map_y: 200,
     node_id: "placement",
-    aliases: ["placement", "placement cell", "tnp", "training and placement", "career cell"],
+    aliases: ["placement", "placement cell", "tnp", "training and placement", "career cell", "प्लेसमेंट", "प्लेसमेंट सेल"],
     opening_hours: "8:30 AM - 5:00 PM",
     is_active: true
   },
@@ -330,7 +328,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 180,
     map_y: 380,
     node_id: "medical_room",
-    aliases: ["medical", "dispensary", "clinic", "doctor", "first aid", "hospital"],
+    aliases: ["medical", "dispensary", "clinic", "doctor", "first aid", "hospital", "medical room", "मेडिकल", "डिस्पेंसरी", "डॉक्टर"],
     opening_hours: "24/7 Medical Care",
     is_active: true
   },
@@ -347,7 +345,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 630,
     map_y: 480,
     node_id: "sports",
-    aliases: ["sports", "sports ground", "cricket ground", "playground", "basketball court"],
+    aliases: ["sports", "sports ground", "cricket ground", "playground", "basketball court", "स्पोर्ट्स", "खेल मैदान", "क्रिकेट ग्राउंड"],
     opening_hours: "6:00 AM - 7:30 PM",
     is_active: true
   },
@@ -364,7 +362,7 @@ export const CAMPUS_LOCATIONS: LocationItem[] = [
     map_x: 400,
     map_y: 310,
     node_id: "principal_office",
-    aliases: ["director", "principal", "director office", "management office"],
+    aliases: ["director", "principal", "director office", "management office", "डायरेक्टर", "प्रिंसिपल", "डायरेक्टर ऑफिस"],
     opening_hours: "9:00 AM - 5:00 PM",
     is_active: true
   }

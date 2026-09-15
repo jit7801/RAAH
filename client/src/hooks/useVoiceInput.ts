@@ -32,7 +32,8 @@ export function useVoiceInput(onResult: (transcript: string) => void) {
       };
 
       recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
+        let transcript = event.results[0][0].transcript || '';
+        transcript = transcript.trim().replace(/[.,?!।]/g, '');
         if (transcript) {
           onResult(transcript);
         }

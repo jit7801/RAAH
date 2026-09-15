@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { CAMPUS_LOCATIONS, JIET_GOOGLE_MAPS_URL } from '../data/locations';
-import { MapPin, Building, Clock, ArrowLeft, Navigation, Info, ExternalLink } from 'lucide-react';
+import { CAMPUS_LOCATIONS } from '../data/locations';
+import { MapPin, Building, Clock, ArrowLeft, Navigation, Info } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
 
 export const LocationDetailPage: React.FC = () => {
@@ -38,7 +38,7 @@ export const LocationDetailPage: React.FC = () => {
       </button>
 
       <div className="surface-card p-6 md:p-8 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+        <div className="flex items-start justify-between gap-4">
           <div>
             <span className="badge-navy mb-2">{location.category.toUpperCase()}</span>
             <h1 className="text-2xl font-bold text-slate-900 font-display flex items-center gap-2">
@@ -48,21 +48,10 @@ export const LocationDetailPage: React.FC = () => {
             <p className="text-xs text-slate-500 mt-1">{location.official_name}</p>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
-            <a
-              href={JIET_GOOGLE_MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary py-2 px-3 text-xs flex items-center gap-1.5 text-blue-700 hover:text-blue-800 font-medium"
-            >
-              <span>Google Maps Pin</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-            </a>
-            <button onClick={handleNavigate} className="btn-primary py-2 px-4 text-xs font-semibold">
-              <Navigation className="w-4 h-4" />
-              <span>Navigate Here</span>
-            </button>
-          </div>
+          <button onClick={handleNavigate} className="btn-primary">
+            <Navigation className="w-4 h-4" />
+            <span>Navigate Here</span>
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-100">

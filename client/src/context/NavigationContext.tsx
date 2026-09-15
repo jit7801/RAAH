@@ -80,32 +80,37 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   };
 
   const performClientFallbackQuery = (query: string) => {
-    const qLower = query.toLowerCase().trim();
+    const qClean = query.toLowerCase().replace(/[.,?!।]/g, '').trim();
 
-    if (qLower === 'lab' || qLower.includes('lab kaha') || qLower === 'where is lab') {
+    if (qClean === 'lab' || qClean.includes('lab kaha') || qClean.includes('लैब')) {
       setAmbiguousOptions(["CSE Lab 1", "Mechanical Workshop Lab", "Electrical Lab"]);
       setAiResponseText("Multiple labs found on campus. Which lab are you looking for?");
       return;
     }
 
-    if (qLower.includes('dbms') || qLower.includes('cs301')) {
-      const targetNode = 'classroom_c103';
-      setAiResponseText("Today's DBMS class is in Classroom C-103 (Block C, 1st Floor). Generating route...");
+    if (qClean.includes('dbms') || qClean.includes('cs301')) {
+      const targetNode = 'classroom_a101';
+      setAiResponseText("Today's DBMS class is in Classroom A-101 (Main Academic Block, Floor 1). Route generated below!");
       setDestinationNodeIdState(targetNode);
       setCurrentRoute(computeDijkstraRoute(startNodeId, targetNode, language));
       return;
     }
 
     for (const loc of CAMPUS_LOCATIONS) {
-      if (loc.aliases.some(a => qLower.includes(a.toLowerCase()))) {
-        setAiResponseText(`${loc.name} is located in ${loc.building}. Route highlighted below!`);
+      const matchesName = loc.name.toLowerCase().includes(qClean) || qClean.includes(loc.name.toLowerCase());
+      const matchesOfficial = loc.official_name.toLowerCase().includes(qClean);
+      const matchesHindi = loc.name_hindi && loc.name_hindi.includes(qClean);
+      const matchesAlias = loc.aliases.some(a => qClean.includes(a.toLowerCase()) || a.toLowerCase().includes(qClean));
+
+      if (matchesName || matchesOfficial || matchesHindi || matchesAlias) {
+        setAiResponseText(`${loc.name} (${loc.building}, Floor ${loc.floor}) found! Route highlighted below.`);
         setDestinationNodeIdState(loc.node_id);
         setCurrentRoute(computeDijkstraRoute(startNodeId, loc.node_id, language));
         return;
       }
     }
 
-    setAiResponseText("Could not match that location. Try searching for Library, CSE Lab, Auditorium, or Canteen.");
+    setAiResponseText("Could not match that exact location. Try searching for Library, CSE Dept, Auditorium, or Canteen.");
   };
 
   const resetNavigation = () => {
