@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNavigation } from '../context/NavigationContext';
 import { useVoiceInput } from '../hooks/useVoiceInput';
-import { Send, Mic, MapPin, Bot, User, Sparkles } from 'lucide-react';
+import { Send, Mic, MapPin, Navigation, User, Sparkles } from 'lucide-react';
 import { CAMPUS_LOCATIONS } from '../data/locations';
 
 interface ChatMessage {
@@ -23,7 +23,7 @@ export const ChatPage: React.FC = () => {
     {
       id: '1',
       sender: 'ai',
-      text: "Namaste! Main DISHA AI campus receptionist hoon. Aapko canteen, CSE lab, library, auditorium, ya kisi classroom ka rasta puchna hai?",
+      text: "Namaste! I am your RAAH AI campus navigation assistant. Which classroom, lab, department, or canteen are you looking for today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -47,7 +47,6 @@ export const ChatPage: React.FC = () => {
     setMessages(prev => [...prev, userMsg]);
     setInputText('');
 
-    // Call AI NLU endpoint
     try {
       const res = await fetch('http://localhost:5001/api/v1/ai/query', {
         method: 'POST',
@@ -67,7 +66,6 @@ export const ChatPage: React.FC = () => {
         };
         setMessages(prev => [...prev, aiMsg]);
       } else {
-        // Fallback response
         generateFallbackResponse(query);
       }
     } catch (e) {
@@ -84,7 +82,7 @@ export const ChatPage: React.FC = () => {
         {
           id: Date.now().toString(),
           sender: 'ai',
-          text: "Today's DBMS class is assigned to Classroom C-103 (Block C, 1st Floor). Note: Room was recently updated by Admin.",
+          text: "Today's DBMS class is assigned to Classroom C-103 (Block C, 1st Floor). Note: Room was updated live by Admin.",
           destinationNodeId: 'classroom_c103',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
@@ -98,7 +96,7 @@ export const ChatPage: React.FC = () => {
         {
           id: Date.now().toString(),
           sender: 'ai',
-          text: "Campus mein multiple labs hain. Aap kaun sa lab dhundh rahe hain?",
+          text: "Multiple labs are available on campus. Which lab are you looking for?",
           ambiguousOptions: ["CSE Lab 1", "Mechanical Workshop Lab", "Electrical Lab"],
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
@@ -113,7 +111,7 @@ export const ChatPage: React.FC = () => {
           {
             id: Date.now().toString(),
             sender: 'ai',
-            text: `${loc.name} ${loc.building} ground/1st floor par स्थित hai. Main aapke liye interactive route show kar sakta hoon!`,
+            text: `${loc.name} is located in ${loc.building} (Floor ${loc.floor}). I can show you the interactive map route!`,
             destinationNodeId: loc.node_id,
             timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           }
@@ -127,7 +125,7 @@ export const ChatPage: React.FC = () => {
       {
         id: Date.now().toString(),
         sender: 'ai',
-        text: "Kshama kijiye, mujhe is location ka exact path nahi mila. Kripya 'Library', 'CSE Dept', 'Auditorium', ya 'Canteen' ask karein.",
+        text: "Could not find that exact location. Try asking for 'Library', 'CSE Dept', 'Auditorium', or 'Canteen'.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     ]);
@@ -139,55 +137,55 @@ export const ChatPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-4 pb-12 page-enter">
-      {/* Header */}
-      <div className="glass-card p-4 flex items-center justify-between border border-white/10">
+    <div className="max-w-3xl mx-auto space-y-4 pb-12 page-enter">
+      {/* Assistant Header */}
+      <div className="surface-card p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-brand-600/30 border border-brand-500/40 text-brand-300 flex items-center justify-center">
-            <Bot className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-lg bg-navy-800 text-white flex items-center justify-center font-bold">
+            <Navigation className="w-4 h-4 transform -rotate-45" />
           </div>
           <div>
-            <h2 className="text-base font-bold text-white font-display">DISHA AI Receptionist</h2>
-            <p className="text-xs text-slate-400">Multilingual Voice & Text Assistant</p>
+            <h2 className="text-sm font-bold text-slate-900 font-display">RAAH AI Navigation Assistant</h2>
+            <p className="text-xs text-slate-500">Ask directions in English, Hindi, or Hinglish</p>
           </div>
         </div>
       </div>
 
       {/* Messages Thread Container */}
-      <div className="glass-card p-4 md:p-6 min-h-[460px] max-h-[520px] overflow-y-auto space-y-4 scrollbar-hide border border-white/10">
+      <div className="surface-card p-4 md:p-6 min-h-[440px] max-h-[500px] overflow-y-auto space-y-4 scrollbar-hide">
         {messages.map((msg) => (
           <div
             key={msg.id}
             className={`flex items-start gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {msg.sender === 'ai' && (
-              <div className="w-8 h-8 rounded-lg bg-brand-600/30 text-brand-300 flex items-center justify-center shrink-0 mt-1">
-                <Sparkles className="w-4 h-4" />
+              <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 mt-1 font-bold">
+                <Sparkles className="w-3.5 h-3.5" />
               </div>
             )}
 
             <div className={`max-w-md ${msg.sender === 'user' ? 'bubble-user' : 'bubble-ai'}`}>
               <p className="text-sm leading-relaxed">{msg.text}</p>
 
-              {/* Show Route Button if destination extracted */}
+              {/* Show Route Button */}
               {msg.destinationNodeId && (
                 <button
                   onClick={() => handleShowRoute(msg.destinationNodeId!)}
-                  className="mt-3 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-md transition-all"
+                  className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-all cursor-pointer"
                 >
                   <MapPin className="w-3.5 h-3.5" />
-                  <span>Show Route on Campus Map</span>
+                  <span>Show Route on Map</span>
                 </button>
               )}
 
-              {/* Ambiguous options chips */}
+              {/* Ambiguous selection options */}
               {msg.ambiguousOptions && (
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
                   {msg.ambiguousOptions.map((opt, i) => (
                     <button
                       key={i}
                       onClick={() => handleSend(opt)}
-                      className="px-2.5 py-1 rounded-md bg-surface-800 hover:bg-brand-600/40 border border-white/10 text-xs text-brand-300 font-medium transition-colors"
+                      className="px-2.5 py-1 rounded bg-white hover:bg-slate-200/60 border border-slate-200 text-xs text-slate-800 font-medium transition-colors cursor-pointer"
                     >
                       📍 {opt}
                     </button>
@@ -195,12 +193,14 @@ export const ChatPage: React.FC = () => {
                 </div>
               )}
 
-              <p className="text-[9px] text-slate-400 mt-1.5 text-right">{msg.timestamp}</p>
+              <p className={`text-[9px] mt-1 text-right ${msg.sender === 'user' ? 'text-slate-300' : 'text-slate-400'}`}>
+                {msg.timestamp}
+              </p>
             </div>
 
             {msg.sender === 'user' && (
-              <div className="w-8 h-8 rounded-lg bg-slate-700 text-slate-200 flex items-center justify-center shrink-0 mt-1">
-                <User className="w-4 h-4" />
+              <div className="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center shrink-0 mt-1">
+                <User className="w-3.5 h-3.5" />
               </div>
             )}
           </div>
@@ -208,27 +208,27 @@ export const ChatPage: React.FC = () => {
       </div>
 
       {/* Input Bar */}
-      <div className="glass-card p-2 flex items-center gap-2 border border-white/10">
+      <div className="surface-card p-2 flex items-center gap-2">
         <input
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder="Ask DISHA: 'CSE lab kidhar hai?' or 'Where is Auditorium?'..."
-          className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none"
+          placeholder="Ask RAAH AI: 'CSE lab kidhar hai?' or 'Where is Auditorium?'..."
+          className="w-full bg-transparent px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none"
         />
         <button
           type="button"
           onClick={startListening}
-          className={`p-2.5 rounded-xl transition-colors ${
-            isListening ? 'bg-rose-600 text-white animate-pulse' : 'text-slate-400 hover:text-white hover:bg-white/10'
+          className={`p-2 rounded-lg transition-colors ${
+            isListening ? 'bg-rose-600 text-white animate-pulse' : 'text-slate-400 hover:text-slate-700 hover:bg-slate-100'
           }`}
         >
           <Mic className="w-4 h-4" />
         </button>
         <button
           onClick={() => handleSend()}
-          className="btn-primary py-2 px-4 rounded-xl text-xs font-semibold shrink-0"
+          className="btn-primary py-2 px-4 rounded-lg text-xs font-semibold shrink-0"
         >
           <Send className="w-3.5 h-3.5" />
           <span>Send</span>

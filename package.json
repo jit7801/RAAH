@@ -1,7 +1,7 @@
 {
-  "name": "disha-ai-root",
+  "name": "raah-ai-root",
   "version": "1.0.0",
-  "description": "DISHA AI Monorepo Root",
+  "description": "RAAH AI Monorepo Root",
   "private": true,
   "scripts": {
     "dev:client": "npm run dev --prefix client",

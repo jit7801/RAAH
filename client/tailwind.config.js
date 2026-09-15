@@ -7,64 +7,41 @@ export default {
   theme: {
     extend: {
       colors: {
+        navy: {
+          50:  '#f0f4f9',
+          100: '#e1e9f3',
+          200: '#c3d3e6',
+          300: '#97b4d4',
+          400: '#648fc0',
+          500: '#3e6da8',
+          600: '#2b528b',
+          700: '#234271',
+          800: '#1E3A5F', // Primary Navy
+          900: '#1a3150',
+          950: '#101d32',
+        },
         brand: {
-          50:  '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
-        },
-        accent: {
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-        },
-        surface: {
-          950: '#0a0a14',
-          900: '#0f0f1a',
-          800: '#16162a',
-          700: '#1e1e36',
-          600: '#252545',
+          50:  '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3B82F6', // Accent Fresh Blue
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Outfit', 'Inter', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
       },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'route-draw': 'routeDraw 1.5s ease forwards',
-        'slide-up': 'slideUp 0.3s ease forwards',
-        'fade-in': 'fadeIn 0.4s ease forwards',
-        'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
-      },
-      keyframes: {
-        routeDraw: {
-          '0%': { strokeDashoffset: '1000' },
-          '100%': { strokeDashoffset: '0' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        bounceSubtle: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-6px)' },
-        },
-      },
-      backdropBlur: {
-        xs: '2px',
-      },
+      boxShadow: {
+        'card': '0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05)',
+        'card-hover': '0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05)',
+        'dropdown': '0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04)',
+      }
     },
   },
   plugins: [],

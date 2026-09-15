@@ -24,9 +24,9 @@ app.use('/api/v1/classrooms', classroomsRouter);
 app.use('/api/v1/admin', adminRouter);
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', app: 'DISHA AI Backend', timestamp: new Date().toISOString() });
+  res.json({ status: 'ok', app: 'RAAH AI Backend', timestamp: new Date().toISOString() });
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 DISHA AI Server running on http://localhost:${PORT}`);
+  console.log(`🚀 RAAH AI Server running on http://localhost:${PORT}`);
 });

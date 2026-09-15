@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useVoiceInput } from '../hooks/useVoiceInput';
 import { CampusMap } from '../components/map/CampusMap';
 import { DirectionsPanel } from '../components/navigation/DirectionsPanel';
-import { Search, Mic, Sparkles, AlertCircle } from 'lucide-react';
+import { Search, Mic, Sparkles, HelpCircle } from 'lucide-react';
 import { CAMPUS_LOCATIONS } from '../data/locations';
 
 export const NavigatePage: React.FC = () => {
@@ -53,40 +53,40 @@ export const NavigatePage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-12 page-enter">
-      {/* Top Search Header */}
-      <div className="glass-card p-4 shadow-xl border border-white/10">
-        <form onSubmit={handleSubmit} className="flex items-center gap-3">
-          <div className="relative flex-1 flex items-center bg-surface-900 border border-white/10 rounded-xl px-3 py-2">
+    <div className="space-y-5 pb-12 page-enter">
+      {/* Search Header */}
+      <div className="surface-card p-3.5 shadow-sm">
+        <form onSubmit={handleSubmit} className="flex items-center gap-2">
+          <div className="relative flex-1 flex items-center bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
             <Search className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
             <input
               type="text"
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="w-full bg-transparent text-sm text-white placeholder-slate-500 focus:outline-none"
+              className="w-full bg-transparent text-sm text-slate-900 placeholder-slate-400 focus:outline-none"
             />
             <button
               type="button"
               onClick={startListening}
-              className={`p-1.5 rounded-lg transition-colors ${
-                isListening ? 'bg-rose-600 text-white animate-pulse' : 'text-slate-400 hover:text-white'
+              className={`p-1.5 rounded transition-colors ${
+                isListening ? 'bg-rose-600 text-white animate-pulse' : 'text-slate-400 hover:text-slate-700'
               }`}
             >
               <Mic className="w-4 h-4" />
             </button>
           </div>
-          <button type="submit" className="btn-primary text-xs py-2 px-4">
-            {isLoading ? 'Processing...' : 'Search'}
+          <button type="submit" className="btn-primary text-xs py-2.5 px-4 font-semibold shrink-0">
+            {isLoading ? 'Calculating...' : 'Search'}
           </button>
         </form>
 
-        {/* AI Response Text Box */}
+        {/* AI Response Text */}
         {aiResponseText && (
-          <div className="mt-3 p-3 rounded-xl bg-brand-950/60 border border-brand-500/30 text-xs text-brand-200 flex items-start gap-2.5 animate-slide-up">
-            <Sparkles className="w-4 h-4 text-accent-400 shrink-0 mt-0.5" />
+          <div className="mt-3 p-3 rounded-lg bg-blue-50/80 border border-blue-200/80 text-xs text-blue-900 flex items-start gap-2.5">
+            <Sparkles className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
             <div>
-              <span className="font-semibold text-white">DISHA AI: </span>
+              <span className="font-semibold text-blue-950">RAAH AI: </span>
               {aiResponseText}
             </div>
           </div>
@@ -94,9 +94,9 @@ export const NavigatePage: React.FC = () => {
 
         {/* Ambiguous Selection Options Chips */}
         {ambiguousOptions && ambiguousOptions.length > 0 && (
-          <div className="mt-3 p-3 rounded-xl bg-amber-950/50 border border-amber-500/30 text-xs space-y-2 animate-slide-up">
-            <p className="font-semibold text-amber-300 flex items-center gap-1.5">
-              <AlertCircle className="w-4 h-4" />
+          <div className="mt-3 p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs space-y-2">
+            <p className="font-semibold text-amber-900 flex items-center gap-1.5">
+              <HelpCircle className="w-4 h-4 text-amber-600" />
               {t('ambiguousPrompt')}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -104,7 +104,7 @@ export const NavigatePage: React.FC = () => {
                 <button
                   key={i}
                   onClick={() => handleSelectAmbiguous(opt)}
-                  className="px-3 py-1.5 rounded-lg bg-amber-900/60 hover:bg-amber-800 border border-amber-600/40 text-amber-200 text-xs font-medium transition-colors"
+                  className="px-3 py-1.5 rounded-md bg-white hover:bg-amber-100 border border-amber-300 text-amber-900 text-xs font-semibold shadow-sm transition-colors cursor-pointer"
                 >
                   📍 {opt}
                 </button>
@@ -114,9 +114,9 @@ export const NavigatePage: React.FC = () => {
         )}
       </div>
 
-      {/* Main Grid: Campus Map + Directions Panel */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Center/Left 2 Cols: Interactive Map */}
+      {/* Main Navigation Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Left/Center Map */}
         <div className="lg:col-span-2 h-[480px] lg:h-[560px] w-full">
           <CampusMap
             polylineCoords={currentRoute?.polylineCoordinates}
@@ -125,7 +125,7 @@ export const NavigatePage: React.FC = () => {
           />
         </div>
 
-        {/* Right Col: Directions & Destination Detail */}
+        {/* Right Directions Panel */}
         <div className="lg:col-span-1">
           <DirectionsPanel />
         </div>

@@ -30,7 +30,7 @@ export async function processUserQuery(userQuery: string): Promise<NLUAnalysisRe
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
       const prompt = `
-You are DISHA AI, an intelligent multilingual campus navigation assistant.
+You are RAAH AI, an intelligent multilingual campus navigation assistant.
 Your task is to analyze a user query and extract navigation details.
 
 Available campus locations:
@@ -101,7 +101,7 @@ function performHeuristicNLU(query: string): NLUAnalysisResult | null {
       destination_node_id: loc?.node_id || "classroom_c103",
       course_query: "DBMS",
       language: 'hinglish',
-      response_text: "Aaj ki DBMS class C-103 (Block C, 1st Floor) mein hai. Let me show you the route!",
+      response_text: "Today's DBMS class is in Classroom C-103 (Block C, 1st Floor). Showing route!",
       confidence: 0.95
     };
   }
@@ -119,7 +119,7 @@ function performHeuristicNLU(query: string): NLUAnalysisResult | null {
           destination_node_id: loc.node_id,
           course_query: null,
           language: lang,
-          response_text: `${loc.name} ${loc.building} mein floor ${loc.floor} par hai. Route generated below!`,
+          response_text: `${loc.name} is in ${loc.building} (Floor ${loc.floor}). Route generated below!`,
           confidence: 0.9
         };
       }

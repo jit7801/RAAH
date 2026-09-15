@@ -16,7 +16,7 @@ export const App: React.FC = () => {
     <LanguageProvider>
       <NavigationProvider>
         <Router>
-          <div className="min-h-screen bg-surface-950 text-slate-100 flex flex-col font-sans selection:bg-brand-600/30">
+          <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
             <Header />
 
             <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 pt-6">
@@ -31,13 +31,13 @@ export const App: React.FC = () => {
             </main>
 
             {/* Global Footer */}
-            <footer className="w-full border-t border-white/5 py-6 px-4 text-center text-xs text-slate-500 bg-surface-950">
+            <footer className="w-full border-t border-slate-200 bg-white py-6 px-4 text-xs text-slate-500">
               <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-slate-300 font-display">DISHA AI</span>
+                  <span className="font-bold text-slate-800 font-display">RAAH AI</span>
                   <span>— Multilingual Campus Navigation Assistant</span>
                 </div>
-                <p>College Innovation Project MVP © 2026</p>
+                <p>College Innovation Project Prototype © 2026</p>
               </div>
             </footer>
           </div>

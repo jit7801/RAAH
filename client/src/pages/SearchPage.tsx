@@ -9,7 +9,7 @@ export const SearchPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const categories = [
-    { id: 'all', label: 'All Categories' },
+    { id: 'all', label: 'All Places' },
     { id: 'department', label: 'Departments' },
     { id: 'lab', label: 'Labs' },
     { id: 'classroom', label: 'Classrooms' },
@@ -34,34 +34,34 @@ export const SearchPage: React.FC = () => {
   return (
     <div className="space-y-6 pb-16 page-enter">
       {/* Search Header */}
-      <div className="glass-card p-6 space-y-4 border border-white/10">
+      <div className="surface-card p-6 space-y-4">
         <div>
-          <h1 className="text-xl font-bold text-white font-display">Campus Directory</h1>
-          <p className="text-xs text-slate-400">Browse classrooms, departments, offices, and facilities across campus</p>
+          <h1 className="text-xl font-bold text-slate-900 font-display">Campus Directory</h1>
+          <p className="text-xs text-slate-500">Explore classrooms, departments, offices, and campus amenities</p>
         </div>
 
         {/* Input Bar */}
-        <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+        <div className="relative max-w-2xl">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search by name, room number (e.g. B-204), building, or keyword..."
-            className="input-field pl-9"
+            placeholder="Search by location, room (e.g. B-204), building, or department..."
+            className="input-field pl-10"
           />
         </div>
 
         {/* Category Pills */}
-        <div className="flex flex-wrap gap-2 pt-1">
+        <div className="flex flex-wrap gap-1.5 pt-1">
           {categories.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelectedCategory(c.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 selectedCategory === c.id
-                  ? 'bg-brand-600 text-white shadow-md'
-                  : 'bg-surface-800 text-slate-400 hover:text-white hover:bg-surface-700'
+                  ? 'bg-navy-800 text-white shadow-sm font-semibold'
+                  : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
               }`}
             >
               {c.label}
@@ -76,30 +76,30 @@ export const SearchPage: React.FC = () => {
           <div
             key={loc.id}
             onClick={() => navigate(`/location/${loc.id}`)}
-            className="glass-card-hover p-5 space-y-3 cursor-pointer flex flex-col justify-between"
+            className="surface-card-hover p-4 space-y-3 cursor-pointer flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="badge-indigo">{loc.category.toUpperCase()}</span>
-                <span className="text-xs text-slate-400">{loc.building}</span>
+                <span className="badge-navy">{loc.category.toUpperCase()}</span>
+                <span className="text-xs text-slate-500 font-medium">{loc.building}</span>
               </div>
-              <h3 className="text-base font-bold text-white font-display flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-brand-400 shrink-0" />
+              <h3 className="text-sm font-bold text-slate-900 font-display flex items-center gap-1.5">
+                <MapPin className="w-4 h-4 text-blue-600 shrink-0" />
                 {loc.name}
               </h3>
-              <p className="text-xs text-slate-400 mt-1 line-clamp-2">{loc.description}</p>
+              <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">{loc.description}</p>
             </div>
 
-            <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
-              <span className="text-slate-400">Floor {loc.floor} {loc.room_number ? `· Room ${loc.room_number}` : ''}</span>
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span className="text-slate-500 font-medium">Floor {loc.floor} {loc.room_number ? `· Room ${loc.room_number}` : ''}</span>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   navigate(`/navigate?dest=${loc.node_id}`);
                 }}
-                className="text-brand-400 hover:text-brand-300 font-semibold flex items-center gap-1"
+                className="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-1"
               >
-                <span>Route</span>
+                <span>Navigate</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -108,8 +108,9 @@ export const SearchPage: React.FC = () => {
       </div>
 
       {filtered.length === 0 && (
-        <div className="glass-card p-8 text-center text-slate-400">
-          <p className="text-sm">No campus locations found matching your search.</p>
+        <div className="surface-card p-8 text-center text-slate-500">
+          <p className="text-sm font-medium">No campus locations found matching your search.</p>
+          <p className="text-xs text-slate-400 mt-1">Try searching for a room number, department name, or building.</p>
         </div>
       )}
     </div>

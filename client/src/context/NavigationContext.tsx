@@ -50,7 +50,6 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setAmbiguousOptions(null);
 
     try {
-      // Call backend API if running, fallback to client NLU engine
       const res = await fetch('http://localhost:5001/api/v1/ai/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -71,7 +70,6 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           setCurrentRoute(route);
         }
       } else {
-        // Fallback local processing
         performClientFallbackQuery(userQuery);
       }
     } catch (e) {
@@ -86,13 +84,13 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     if (qLower === 'lab' || qLower.includes('lab kaha') || qLower === 'where is lab') {
       setAmbiguousOptions(["CSE Lab 1", "Mechanical Workshop Lab", "Electrical Lab"]);
-      setAiResponseText("Aap kaun sa lab dhundh rahe hain? Choose below:");
+      setAiResponseText("Multiple labs found on campus. Which lab are you looking for?");
       return;
     }
 
     if (qLower.includes('dbms') || qLower.includes('cs301')) {
       const targetNode = 'classroom_c103';
-      setAiResponseText("Today's DBMS class is in Classroom C-103 (Block C, 1st Floor). Showing route!");
+      setAiResponseText("Today's DBMS class is in Classroom C-103 (Block C, 1st Floor). Generating route...");
       setDestinationNodeIdState(targetNode);
       setCurrentRoute(computeDijkstraRoute(startNodeId, targetNode, language));
       return;
@@ -100,14 +98,14 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     for (const loc of CAMPUS_LOCATIONS) {
       if (loc.aliases.some(a => qLower.includes(a.toLowerCase()))) {
-        setAiResponseText(`${loc.name} is in ${loc.building}. Route highlighted on campus map!`);
+        setAiResponseText(`${loc.name} is located in ${loc.building}. Route highlighted below!`);
         setDestinationNodeIdState(loc.node_id);
         setCurrentRoute(computeDijkstraRoute(startNodeId, loc.node_id, language));
         return;
       }
     }
 
-    setAiResponseText("Kshama kijiye, location nahi mili. Kripya Library, CSE Lab, ya Auditorium search karein.");
+    setAiResponseText("Could not match that location. Try searching for Library, CSE Lab, Auditorium, or Canteen.");
   };
 
   const resetNavigation = () => {

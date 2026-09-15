@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,8 +5,6 @@
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
   }
 
   html {
@@ -16,142 +12,121 @@
   }
 
   body {
-    background-color: #0a0a14;
-    color: #e2e8f0;
+    background-color: #F8FAFC;
+    color: #0F172A;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
   }
 
   ::selection {
-    background-color: rgba(99, 102, 241, 0.3);
-    color: #e2e8f0;
+    background-color: #DBEAFE;
+    color: #1E3A8A;
   }
 
   ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0f0f1a;
+    background: #F1F5F9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #3730a3;
-    border-radius: 2px;
+    background: #CBD5E1;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
   }
 }
 
 @layer components {
-  /* --- Glass Card --- */
-  .glass-card {
-    @apply bg-surface-800/60 backdrop-blur-md border border-white/5 rounded-2xl;
+  /* Surface Cards */
+  .surface-card {
+    @apply bg-white border border-slate-200 rounded-xl shadow-card transition-all duration-200;
   }
 
-  .glass-card-hover {
-    @apply glass-card hover:bg-surface-700/60 hover:border-brand-500/30 transition-all duration-200;
+  .surface-card-hover {
+    @apply surface-card hover:border-slate-300 hover:shadow-card-hover;
   }
 
-  /* --- Buttons --- */
+  /* Buttons */
   .btn-primary {
-    @apply flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm
-           bg-brand-600 hover:bg-brand-500 text-white
-           transition-all duration-150 active:scale-95 shadow-lg shadow-brand-900/40;
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm
+           bg-navy-800 hover:bg-navy-700 active:bg-navy-900 text-white
+           shadow-sm transition-all duration-150 cursor-pointer disabled:opacity-50;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm
+           bg-brand-600 hover:bg-brand-500 active:bg-brand-700 text-white
+           shadow-sm transition-all duration-150 cursor-pointer disabled:opacity-50;
   }
 
   .btn-secondary {
-    @apply flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm
-           bg-surface-700 hover:bg-surface-600 text-slate-200 border border-white/10
-           transition-all duration-150 active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm
+           bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-700 border border-slate-200
+           shadow-sm transition-all duration-150 cursor-pointer;
   }
 
   .btn-ghost {
-    @apply flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm
-           text-slate-400 hover:text-white hover:bg-white/5
-           transition-all duration-150;
+    @apply inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg font-medium text-sm
+           text-slate-600 hover:text-slate-900 hover:bg-slate-100
+           transition-all duration-150 cursor-pointer;
   }
 
-  /* --- Input --- */
+  /* Inputs */
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl bg-surface-700 border border-white/10
-           text-white placeholder-slate-500 text-sm
-           focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/40
+    @apply w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200
+           text-slate-900 placeholder-slate-400 text-sm
+           focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20
            transition-all duration-150;
   }
 
-  /* --- AI Chat bubbles --- */
+  /* Chat Bubbles */
   .bubble-ai {
-    @apply bg-surface-700 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-200;
+    @apply bg-slate-100 border border-slate-200/80 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-800 shadow-sm;
   }
 
   .bubble-user {
-    @apply bg-brand-600/80 rounded-2xl rounded-tr-sm px-4 py-3 text-sm text-white;
+    @apply bg-navy-800 text-white rounded-2xl rounded-tr-sm px-4 py-3 text-sm shadow-sm;
   }
 
-  /* --- Badge --- */
+  /* Badges */
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium;
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold tracking-wide;
   }
 
-  .badge-indigo {
-    @apply badge bg-brand-900/60 text-brand-300 border border-brand-700/40;
+  .badge-navy {
+    @apply badge bg-navy-50 text-navy-800 border border-navy-200/60;
+  }
+
+  .badge-blue {
+    @apply badge bg-blue-50 text-blue-700 border border-blue-200/60;
   }
 
   .badge-green {
-    @apply badge bg-emerald-900/60 text-emerald-300 border border-emerald-700/40;
+    @apply badge bg-emerald-50 text-emerald-700 border border-emerald-200/60;
   }
 
-  .badge-amber {
-    @apply badge bg-amber-900/60 text-amber-300 border border-amber-700/40;
+  .badge-slate {
+    @apply badge bg-slate-100 text-slate-700 border border-slate-200;
   }
 
-  /* --- Location pin pulse --- */
-  .pin-pulse {
-    animation: pinPulse 2s ease-in-out infinite;
-  }
-
-  /* --- Route line animation --- */
-  .route-animated {
-    stroke-dasharray: 12 6;
-    animation: dashMove 0.8s linear infinite;
-  }
-
-  /* --- Page transition --- */
-  .page-enter {
-    @apply animate-fade-in;
-  }
-
-  /* --- Nav item --- */
+  /* Nav Links */
   .nav-item {
     @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium
-           text-slate-400 hover:text-white hover:bg-white/5
+           text-slate-600 hover:text-slate-900 hover:bg-slate-100
            transition-all duration-150;
   }
 
   .nav-item-active {
-    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium
-           text-white bg-brand-600/20 border border-brand-500/30;
+    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold
+           text-navy-800 bg-navy-50 border border-navy-200/60;
   }
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent;
-  }
-
-  .glow-brand {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-  }
-
-  .glow-brand-sm {
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
-  }
-
-  .border-gradient {
-    border: 1px solid transparent;
-    background-clip: padding-box;
-  }
-
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -161,23 +136,14 @@
   }
 }
 
-/* Custom keyframes */
-@keyframes pinPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.3); }
+/* Keyframes */
+@keyframes routeDash {
+  to {
+    stroke-dashoffset: -20;
+  }
 }
 
-@keyframes dashMove {
-  to { stroke-dashoffset: -18; }
-}
-
-@keyframes routeDrawIn {
-  from { stroke-dashoffset: 2000; }
-  to { stroke-dashoffset: 0; }
-}
-
-.route-draw-in {
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  animation: routeDrawIn 1.2s ease forwards;
+.route-animated-line {
+  stroke-dasharray: 8 6;
+  animation: routeDash 1s linear infinite;
 }
