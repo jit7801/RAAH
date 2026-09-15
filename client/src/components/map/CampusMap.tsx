@@ -31,7 +31,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
       {/* Map Header Title Badge */}
       <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 shadow-sm flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-        <span>JIET Mogra Campus Map (Jodhpur)</span>
+        <span>JIET Campus Map (Jodhpur)</span>
       </div>
 
       {/* Zoom Controls */}
@@ -104,7 +104,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
             <line x1="400" y1="530" x2="400" y2="310" stroke="#E2E8F0" strokeWidth="14" strokeLinecap="round" />
           </g>
 
-          {/* JIET Mogra Campus Buildings Layer */}
+          {/* JIET Campus Buildings Layer */}
           <g id="buildings">
             {/* Main Gate (Pali Road) */}
             <rect x="70" y="500" width="100" height="60" rx="8" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />

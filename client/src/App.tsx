@@ -37,7 +37,7 @@ export const App: React.FC = () => {
                   <span className="font-bold text-slate-800 font-display">RAAH AI</span>
                   <span>— Multilingual Campus Navigation Assistant</span>
                 </div>
-                <p>JIET Group of Institutions, Mogra, Jodhpur (Rajasthan) © 2026</p>
+                <p>JIET Group of Institutions, Jodhpur (Rajasthan) © 2026</p>
               </div>
             </footer>
           </div>

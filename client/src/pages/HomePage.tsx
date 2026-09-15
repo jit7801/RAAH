@@ -40,7 +40,7 @@ export const HomePage: React.FC = () => {
         {/* Campus Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold mb-4 shadow-xs">
           <GraduationCap className="w-4 h-4 text-blue-600" />
-          <span>JIET Mogra Campus, Jodhpur (Rajasthan)</span>
+          <span>JIET Campus, Jodhpur (Rajasthan)</span>
         </div>
 
         {/* Main Headline */}
@@ -48,7 +48,7 @@ export const HomePage: React.FC = () => {
           {t('tagline')}
         </h1>
         <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto mb-8 font-normal leading-relaxed">
-          RAAH AI helps students, faculty, and visitors find classrooms, labs, departments, and hostels across JIET Mogra campus with simple multilingual search and step directions.
+          RAAH AI helps students, faculty, and visitors find classrooms, labs, departments, and hostels across JIET campus with simple multilingual search and step directions.
         </p>
 
         {/* Dominant Search Input Bar */}
@@ -117,7 +117,7 @@ export const HomePage: React.FC = () => {
             <div>
               <h2 className="text-base font-bold text-slate-900 font-display flex items-center gap-2">
                 <Compass className="w-5 h-5 text-navy-800" />
-                JIET Mogra Campus Overview Map
+                JIET Campus Overview Map
               </h2>
               <p className="text-xs text-slate-500">Select any department or facility to generate indoor-outdoor walking directions</p>
             </div>
