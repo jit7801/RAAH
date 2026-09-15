@@ -18,6 +18,8 @@ export interface LocationItem {
   is_active: boolean;
 }
 
+export const JIET_GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/1KHgcyhYGt4gmdzG7';
+
 export const CAMPUS_LOCATIONS: LocationItem[] = [
   {
     id: "jiet-1",

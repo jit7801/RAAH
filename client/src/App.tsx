@@ -10,6 +10,8 @@ import { ChatPage } from './pages/ChatPage';
 import { SearchPage } from './pages/SearchPage';
 import { LocationDetailPage } from './pages/LocationDetailPage';
 import { AdminPage } from './pages/AdminPage';
+import { JIET_GOOGLE_MAPS_URL } from './data/locations';
+import { ExternalLink, MapPin } from 'lucide-react';
 
 export const App: React.FC = () => {
   return (
@@ -37,7 +39,19 @@ export const App: React.FC = () => {
                   <span className="font-bold text-slate-800 font-display">RAAH AI</span>
                   <span>— Multilingual Campus Navigation Assistant</span>
                 </div>
-                <p>JIET Group of Institutions, Jodhpur (Rajasthan) © 2026</p>
+                <div className="flex items-center gap-4">
+                  <a
+                    href={JIET_GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 transition-colors"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-rose-600" />
+                    <span>JIET Google Maps Pin</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <span>JIET Group of Institutions, Jodhpur © 2026</span>
+                </div>
               </div>
             </footer>
           </div>

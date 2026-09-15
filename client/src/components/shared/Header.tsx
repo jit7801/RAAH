@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { RaahLogo } from './RaahLogo';
-import { MapPin, Navigation, Compass, Shield } from 'lucide-react';
+import { MapPin, Navigation, Compass, Shield, ExternalLink } from 'lucide-react';
+import { JIET_GOOGLE_MAPS_URL } from '../../data/locations';
 
 export const Header: React.FC = () => {
   const location = useLocation();
@@ -43,8 +44,19 @@ export const Header: React.FC = () => {
           </Link>
         </nav>
 
-        {/* Language Switcher */}
-        <div className="flex items-center gap-2">
+        {/* Right Section: Google Maps Pin Link & Language Switcher */}
+        <div className="flex items-center gap-2.5">
+          <a
+            href={JIET_GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Open exact JIET campus pin on Google Maps"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-blue-50/80 px-2.5 py-1.5 rounded-lg border border-slate-200/80 hover:border-blue-200 font-medium transition-all cursor-pointer"
+          >
+            <MapPin className="w-3.5 h-3.5 text-rose-600" />
+            <span>Google Maps</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </a>
           <LanguageSwitcher />
         </div>
       </div>
