@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useNavigation } from '../context/NavigationContext';
 import { useVoiceInput } from '../hooks/useVoiceInput';
 import { CampusMap } from '../components/map/CampusMap';
-import { Search, Mic, ArrowRight, Compass, Sparkles, MapPin, CheckCircle2 } from 'lucide-react';
+import { Search, Mic, ArrowRight, Compass, Sparkles, MapPin, CheckCircle2, GraduationCap } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const { t } = useLanguage();
@@ -25,22 +25,22 @@ export const HomePage: React.FC = () => {
   };
 
   const quickSearches = [
-    { label: "Central Library", query: "Where is the library?" },
-    { label: "CSE Department", query: "CSE department kaha hai?" },
-    { label: "Main Auditorium", query: "Auditorium kidhar hai?" },
-    { label: "Classroom B-204", query: "Meri class B-204 mein hai" },
-    { label: "Campus Canteen", query: "Canteen tak kaise pahuchu?" },
-    { label: "Medical Centre", query: "Where is the hospital?" },
+    { label: "Dr. Kalam Library", query: "Kalam library kaha hai?" },
+    { label: "CSE Department", query: "CSE department kidhar hai?" },
+    { label: "Visvesvaraya Auditorium", query: "Visvesvaraya auditorium jana hai" },
+    { label: "Classroom A-101", query: "Meri DBMS class A-101 mein hai" },
+    { label: "JIET Canteen", query: "Canteen tak kaise pahuchu?" },
+    { label: "Tagore Boys Hostel", query: "Tagore hostel kaha hai?" },
   ];
 
   return (
     <div className="space-y-10 pb-16 page-enter">
       {/* Hero Section */}
       <section className="pt-6 pb-2 text-center max-w-3xl mx-auto px-4">
-        {/* Subtle Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-          <span>Multilingual Campus Navigation Assistant</span>
+        {/* Campus Badge */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold mb-4 shadow-xs">
+          <GraduationCap className="w-4 h-4 text-blue-600" />
+          <span>JIET Mogra Campus, Jodhpur (Rajasthan)</span>
         </div>
 
         {/* Main Headline */}
@@ -48,7 +48,7 @@ export const HomePage: React.FC = () => {
           {t('tagline')}
         </h1>
         <p className="text-sm md:text-base text-slate-600 max-w-xl mx-auto mb-8 font-normal leading-relaxed">
-          {t('heroSubtitle')}
+          RAAH AI helps students, faculty, and visitors find classrooms, labs, departments, and hostels across JIET Mogra campus with simple multilingual search and step directions.
         </p>
 
         {/* Dominant Search Input Bar */}
@@ -92,7 +92,7 @@ export const HomePage: React.FC = () => {
 
         {/* Popular Quick Searches */}
         <div className="space-y-2">
-          <p className="text-xs text-slate-500 font-medium">{t('tryAsking')}</p>
+          <p className="text-xs text-slate-500 font-medium">JIET Campus Quick Searches:</p>
           <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
             {quickSearches.map((item, idx) => (
               <button
@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
                   setQueryInput(item.query);
                   handleSearch(item.query);
                 }}
-                className="px-3 py-1 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-xs text-slate-700 font-medium shadow-sm transition-all cursor-pointer"
+                className="px-3 py-1 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-xs text-slate-700 font-medium shadow-xs transition-all cursor-pointer"
               >
                 {item.label}
               </button>
@@ -117,9 +117,9 @@ export const HomePage: React.FC = () => {
             <div>
               <h2 className="text-base font-bold text-slate-900 font-display flex items-center gap-2">
                 <Compass className="w-5 h-5 text-navy-800" />
-                Interactive Campus Overview
+                JIET Mogra Campus Overview Map
               </h2>
-              <p className="text-xs text-slate-500">Select any location to view instant step-by-step route</p>
+              <p className="text-xs text-slate-500">Select any department or facility to generate indoor-outdoor walking directions</p>
             </div>
             <button
               onClick={() => navigate('/navigate')}
@@ -145,9 +145,9 @@ export const HomePage: React.FC = () => {
             <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-sm">
               <Sparkles className="w-4 h-4" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900 font-display">Multilingual Understanding</h3>
+            <h3 className="text-sm font-bold text-slate-900 font-display">Multilingual Assistant</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Ask in Hinglish, Hindi, or English naturally. RAAH AI accurately extracts departments, rooms, and landmarks.
+              Ask queries in Hinglish, Hindi, or English. RAAH AI resolves JIET departments, Kalam library, hostels, and labs.
             </p>
           </div>
 
@@ -155,9 +155,9 @@ export const HomePage: React.FC = () => {
             <div className="w-9 h-9 rounded-lg bg-navy-50 text-navy-800 flex items-center justify-center font-bold text-sm">
               <MapPin className="w-4 h-4" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900 font-display">Graph-Based Dijkstra Routing</h3>
+            <h3 className="text-sm font-bold text-slate-900 font-display">Campus Pathfinding</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Calculates shortest walking paths, distance in meters, and walking time estimates across buildings and corridors.
+              Dijkstra graph pathfinding mapping Pali Road entrance, Main Academic Block, Block B, Block C, hostels, and canteen.
             </p>
           </div>
 
@@ -165,9 +165,9 @@ export const HomePage: React.FC = () => {
             <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-sm">
               <CheckCircle2 className="w-4 h-4" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900 font-display">Live Classroom Updates</h3>
+            <h3 className="text-sm font-bold text-slate-900 font-display">Dynamic Room Sync</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Dynamically reflects room reassignments made by campus admins, ensuring students never wander into empty rooms.
+              Solves real field research issues: JIET admins can dynamically update lecture rooms (e.g. DBMS in A-101), updating directions live.
             </p>
           </div>
         </div>

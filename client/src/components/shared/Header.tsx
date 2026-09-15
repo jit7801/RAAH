@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { RaahLogo } from './RaahLogo';
 import { MapPin, Navigation, Compass, Shield } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -8,17 +9,15 @@ export const Header: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 lg:px-8 py-3 transition-all">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 lg:px-8 py-2.5 transition-all">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-lg bg-navy-800 text-white flex items-center justify-center shadow-sm group-hover:bg-navy-700 transition-colors">
-            <Navigation className="w-4 h-4 text-brand-400 transform -rotate-45" />
-          </div>
+          <RaahLogo className="w-9 h-9 group-hover:scale-105 transition-transform" />
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-display font-bold text-lg text-slate-900 tracking-tight">RAAH AI</span>
-              <span className="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 px-1.5 py-0.5 rounded">Campus</span>
+              <span className="font-display font-extrabold text-lg text-slate-900 tracking-tight">RAAH AI</span>
+              <span className="text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200/80 px-1.5 py-0.5 rounded">JIET Mogra</span>
             </div>
           </div>
         </Link>

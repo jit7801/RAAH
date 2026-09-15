@@ -28,6 +28,12 @@ export const CampusMap: React.FC<CampusMapProps> = ({
 
   return (
     <div className="relative w-full h-full min-h-[380px] bg-slate-50 rounded-xl overflow-hidden border border-slate-200 shadow-card flex items-center justify-center select-none">
+      {/* Map Header Title Badge */}
+      <div className="absolute top-4 left-4 z-20 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 shadow-sm flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+        <span>JIET Mogra Campus Map (Jodhpur)</span>
+      </div>
+
       {/* Zoom Controls */}
       <div className="absolute top-4 right-4 z-20 flex flex-col gap-1 bg-white/90 backdrop-blur-sm p-1 rounded-lg border border-slate-200 shadow-sm">
         <button
@@ -65,7 +71,7 @@ export const CampusMap: React.FC<CampusMapProps> = ({
         </div>
         <div className="flex items-center gap-1.5">
           <span className="w-4 h-1 bg-blue-600 rounded" />
-          <span>Active Route</span>
+          <span>Calculated Route</span>
         </div>
       </div>
 
@@ -98,60 +104,69 @@ export const CampusMap: React.FC<CampusMapProps> = ({
             <line x1="400" y1="530" x2="400" y2="310" stroke="#E2E8F0" strokeWidth="14" strokeLinecap="round" />
           </g>
 
-          {/* Campus Buildings Layer */}
+          {/* JIET Mogra Campus Buildings Layer */}
           <g id="buildings">
-            {/* Main Gate */}
+            {/* Main Gate (Pali Road) */}
             <rect x="70" y="500" width="100" height="60" rx="8" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-            <text x="120" y="535" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="600">Main Gate</text>
+            <text x="120" y="528" textAnchor="middle" fill="#334155" fontSize="10" fontWeight="700">JIET Main Gate</text>
+            <text x="120" y="542" textAnchor="middle" fill="#64748B" fontSize="8">(Pali Road Entrance)</text>
 
-            {/* Block A (Library & Seminar) */}
+            {/* Main Academic Block (Kalam Library & AI/Placement) */}
             <rect x="170" y="140" width="120" height="130" rx="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
             <rect x="180" y="150" width="100" height="40" rx="6" fill="#F1F5F9" />
-            <text x="230" y="175" textAnchor="middle" fill="#475569" fontSize="10">Seminar A-201</text>
+            <text x="230" y="174" textAnchor="middle" fill="#475569" fontSize="9" fontWeight="600">AI & DS Dept (2F)</text>
             <rect x="180" y="195" width="100" height="65" rx="6" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1" />
-            <text x="230" y="232" textAnchor="middle" fill="#1E3A8A" fontSize="12" fontWeight="700">Block A Library</text>
+            <text x="230" y="224" textAnchor="middle" fill="#1E3A8A" fontSize="11" fontWeight="700">Dr. Kalam Library</text>
+            <text x="230" y="240" textAnchor="middle" fill="#2563EB" fontSize="8">& T&P Cell (1F)</text>
 
-            {/* Block B (CSE Dept & Lab) */}
+            {/* Main Block Wing (CSE Dept & LT-101) */}
             <rect x="360" y="120" width="130" height="150" rx="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-            <text x="425" y="142" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="700">Block B (CSE)</text>
+            <text x="425" y="140" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="700">Main Academic Block</text>
             <rect x="375" y="150" width="100" height="30" rx="4" fill="#F1F5F9" />
-            <text x="425" y="169" textAnchor="middle" fill="#475569" fontSize="9">Class B-204 (2F)</text>
+            <text x="425" y="169" textAnchor="middle" fill="#475569" fontSize="9">Class A-101 (LT-101)</text>
             <rect x="375" y="185" width="100" height="35" rx="4" fill="#F5F3FF" stroke="#DDD6FE" strokeWidth="1" />
             <text x="425" y="206" textAnchor="middle" fill="#5B21B6" fontSize="10" fontWeight="600">CSE Dept & Lab 1</text>
 
-            {/* Block C (Mech Dept & Lab) */}
+            {/* Engineering Block B (Mech Dept & Workshop) */}
             <rect x="560" y="130" width="130" height="140" rx="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-            <text x="625" y="150" textAnchor="middle" fill="#334155" fontSize="11" fontWeight="700">Block C (Mech)</text>
-            <rect x="575" y="160" width="100" height="35" rx="4" fill="#FEF3C7" stroke="#FDE68A" strokeWidth="1" />
-            <text x="625" y="181" textAnchor="middle" fill="#92400E" fontSize="10" fontWeight="600">Class C-103 (1F)</text>
-            <rect x="575" y="200" width="100" height="55" rx="4" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="1" />
-            <text x="625" y="232" textAnchor="middle" fill="#78350F" fontSize="10" fontWeight="600">Mech Lab / Dept</text>
+            <text x="625" y="148" textAnchor="middle" fill="#334155" fontSize="10" fontWeight="700">Engineering Block B</text>
+            <rect x="575" y="158" width="100" height="35" rx="4" fill="#FEF3C7" stroke="#FDE68A" strokeWidth="1" />
+            <text x="625" y="179" textAnchor="middle" fill="#92400E" fontSize="9" fontWeight="600">Class B-202 (LT-202)</text>
+            <rect x="575" y="198" width="100" height="55" rx="4" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="1" />
+            <text x="625" y="222" textAnchor="middle" fill="#78350F" fontSize="10" fontWeight="600">Central Mechanical</text>
+            <text x="625" y="236" textAnchor="middle" fill="#92400E" fontSize="8">Workshop C-001</text>
 
-            {/* Block D (Electrical) */}
+            {/* Block C (Electrical Machines Lab) */}
             <rect x="590" y="340" width="120" height="80" rx="8" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-            <text x="650" y="385" textAnchor="middle" fill="#065F46" fontSize="11" fontWeight="700">Block D Elec Lab</text>
+            <text x="650" y="375" textAnchor="middle" fill="#065F46" fontSize="10" fontWeight="700">Block C Electrical</text>
+            <text x="650" y="390" textAnchor="middle" fill="#047857" fontSize="9">Machines Lab E-101</text>
 
-            {/* Main Building (Admin & Auditorium) */}
+            {/* Main Admin & Visvesvaraya Auditorium */}
             <rect x="320" y="310" width="160" height="140" rx="12" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-            <text x="400" y="335" textAnchor="middle" fill="#1E293B" fontSize="11" fontWeight="700">Main Building</text>
-            <rect x="335" y="345" width="130" height="40" rx="4" fill="#F8FAFC" />
-            <text x="400" y="369" textAnchor="middle" fill="#334155" fontSize="10" fontWeight="600">Admin & Principal</text>
-            <rect x="335" y="390" width="130" height="45" rx="4" fill="#FDF2F8" stroke="#FBCFE8" strokeWidth="1" />
-            <text x="400" y="417" textAnchor="middle" fill="#9D174D" fontSize="11" fontWeight="700">Auditorium</text>
+            <text x="400" y="333" textAnchor="middle" fill="#1E293B" fontSize="11" fontWeight="700">Administration</text>
+            <rect x="335" y="343" width="130" height="38" rx="4" fill="#F8FAFC" />
+            <text x="400" y="366" textAnchor="middle" fill="#334155" fontSize="9" fontWeight="600">Admin & Director</text>
+            <rect x="335" y="388" width="130" height="48" rx="4" fill="#FDF2F8" stroke="#FBCFE8" strokeWidth="1" />
+            <text x="400" y="412" textAnchor="middle" fill="#9D174D" fontSize="10" fontWeight="700">Visvesvaraya</text>
+            <text x="400" y="425" textAnchor="middle" fill="#BE185D" fontSize="9">Grand Auditorium</text>
 
-            {/* Amenities (Canteen & Medical) */}
+            {/* Amenities (JIET Canteen & Medical Centre) */}
             <rect x="150" y="350" width="120" height="80" rx="10" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-            <text x="210" y="375" textAnchor="middle" fill="#0891B2" fontSize="10" fontWeight="600">Medical Centre</text>
-            <rect x="160" y="385" width="100" height="35" rx="6" fill="#ECFEFF" stroke="#CFFAFE" strokeWidth="1" />
-            <text x="210" y="407" textAnchor="middle" fill="#155E75" fontSize="11" fontWeight="700">Campus Canteen</text>
+            <text x="210" y="372" textAnchor="middle" fill="#0891B2" fontSize="9" fontWeight="600">Medical Post</text>
+            <rect x="160" y="382" width="100" height="38" rx="6" fill="#ECFEFF" stroke="#CFFAFE" strokeWidth="1" />
+            <text x="210" y="405" textAnchor="middle" fill="#155E75" fontSize="10" fontWeight="700">JIET Canteen</text>
 
-            {/* Hostel Block */}
-            <rect x="70" y="160" width="90" height="90" rx="8" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-            <text x="115" y="210" textAnchor="middle" fill="#475569" fontSize="11" fontWeight="600">Hostel Block</text>
+            {/* Hostels Zone (Tagore & Gargi) */}
+            <rect x="70" y="160" width="90" height="120" rx="8" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
+            <rect x="75" y="170" width="80" height="45" rx="4" fill="#F1F5F9" />
+            <text x="115" y="196" textAnchor="middle" fill="#334155" fontSize="9" fontWeight="700">Tagore Hostel</text>
+            <rect x="75" y="225" width="80" height="45" rx="4" fill="#FDF4FF" stroke="#F5D0FE" strokeWidth="1" />
+            <text x="115" y="251" textAnchor="middle" fill="#701A75" fontSize="9" fontWeight="700">Gargi Hostel</text>
 
-            {/* Sports Ground */}
+            {/* JIET Sports Complex */}
             <rect x="540" y="450" width="180" height="80" rx="20" fill="#F0FDF4" stroke="#BBF7D0" strokeWidth="1.5" strokeDasharray="4 2" />
-            <text x="630" y="495" textAnchor="middle" fill="#166534" fontSize="12" fontWeight="700">Sports Ground</text>
+            <text x="630" y="490" textAnchor="middle" fill="#166534" fontSize="11" fontWeight="700">JIET Sports Complex</text>
+            <text x="630" y="504" textAnchor="middle" fill="#15803D" fontSize="8">& Cricket Ground</text>
           </g>
 
           {/* ACTIVE ROUTE POLYLINE */}
