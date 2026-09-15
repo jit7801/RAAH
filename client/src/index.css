@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0a0a14;
+    color: #e2e8f0;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: rgba(99, 102, 241, 0.3);
+    color: #e2e8f0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f0f1a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #3730a3;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* --- Glass Card --- */
+  .glass-card {
+    @apply bg-surface-800/60 backdrop-blur-md border border-white/5 rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card hover:bg-surface-700/60 hover:border-brand-500/30 transition-all duration-200;
+  }
+
+  /* --- Buttons --- */
+  .btn-primary {
+    @apply flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm
+           bg-brand-600 hover:bg-brand-500 text-white
+           transition-all duration-150 active:scale-95 shadow-lg shadow-brand-900/40;
+  }
+
+  .btn-secondary {
+    @apply flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm
+           bg-surface-700 hover:bg-surface-600 text-slate-200 border border-white/10
+           transition-all duration-150 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm
+           text-slate-400 hover:text-white hover:bg-white/5
+           transition-all duration-150;
+  }
+
+  /* --- Input --- */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl bg-surface-700 border border-white/10
+           text-white placeholder-slate-500 text-sm
+           focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/40
+           transition-all duration-150;
+  }
+
+  /* --- AI Chat bubbles --- */
+  .bubble-ai {
+    @apply bg-surface-700 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-slate-200;
+  }
+
+  .bubble-user {
+    @apply bg-brand-600/80 rounded-2xl rounded-tr-sm px-4 py-3 text-sm text-white;
+  }
+
+  /* --- Badge --- */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-indigo {
+    @apply badge bg-brand-900/60 text-brand-300 border border-brand-700/40;
+  }
+
+  .badge-green {
+    @apply badge bg-emerald-900/60 text-emerald-300 border border-emerald-700/40;
+  }
+
+  .badge-amber {
+    @apply badge bg-amber-900/60 text-amber-300 border border-amber-700/40;
+  }
+
+  /* --- Location pin pulse --- */
+  .pin-pulse {
+    animation: pinPulse 2s ease-in-out infinite;
+  }
+
+  /* --- Route line animation --- */
+  .route-animated {
+    stroke-dasharray: 12 6;
+    animation: dashMove 0.8s linear infinite;
+  }
+
+  /* --- Page transition --- */
+  .page-enter {
+    @apply animate-fade-in;
+  }
+
+  /* --- Nav item --- */
+  .nav-item {
+    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium
+           text-slate-400 hover:text-white hover:bg-white/5
+           transition-all duration-150;
+  }
+
+  .nav-item-active {
+    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium
+           text-white bg-brand-600/20 border border-brand-500/30;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent;
+  }
+
+  .glow-brand {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+
+  .glow-brand-sm {
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+  }
+
+  .border-gradient {
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom keyframes */
+@keyframes pinPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.3); }
+}
+
+@keyframes dashMove {
+  to { stroke-dashoffset: -18; }
+}
+
+@keyframes routeDrawIn {
+  from { stroke-dashoffset: 2000; }
+  to { stroke-dashoffset: 0; }
+}
+
+.route-draw-in {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: routeDrawIn 1.2s ease forwards;
+}
