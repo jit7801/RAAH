@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import { computeDijkstraRoute, type RouteResult } from '../utils/dijkstra';
 import { CAMPUS_LOCATIONS, type LocationItem } from '../data/locations';
 import { useLanguage } from './LanguageContext';
+import { matchCampusLocation } from '../utils/locationMatcher';
 
 interface NavigationContextType {
   startNodeId: string;
@@ -83,84 +84,25 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   };
 
   const performClientFallbackQuery = (query: string) => {
-    const cleanQuery = query.toLowerCase().replace(/[.,?!।]/g, '').trim();
+    const match = matchCampusLocation(query);
 
-    if (cleanQuery === 'lab' || cleanQuery.includes('lab kaha') || cleanQuery === 'लैब') {
-      setAmbiguousOptions(["CSE Lab 1", "Mechanical Workshop Lab", "Electrical Lab"]);
-      setAiResponseText("Multiple labs found on campus. Which lab are you looking for?");
+    if (match.ambiguousOptions) {
+      setAmbiguousOptions(match.ambiguousOptions);
+      setAiResponseText(match.responseText);
+      setDestinationNodeIdState(null);
+      setCurrentRoute(null);
       return;
     }
 
-    if (cleanQuery === 'hostel' || cleanQuery.includes('hostel kaha') || cleanQuery === 'हॉस्टल') {
-      setAmbiguousOptions(["Tagore Boys Hostel", "Gargi Girls Hostel"]);
-      setAiResponseText("Multiple hostels found on campus. Which hostel are you looking for?");
-      return;
-    }
-
-    if (cleanQuery.includes('dbms') || cleanQuery.includes('cs301')) {
-      const targetNode = 'classroom_a101';
-      setAiResponseText("Today's DBMS class is in Classroom A-101 (Main Academic Block, Floor 1). Route generated below!");
-      setDestinationNodeIdState(targetNode);
-      setCurrentRoute(computeDijkstraRoute(startNodeId, targetNode, language));
-      return;
-    }
-
-    let normalized = cleanQuery
-      .replace(/सीएसई|कंप्यूटर/g, 'cse computer')
-      .replace(/कलाम/g, 'kalam')
-      .replace(/लाइब्रेरी|पुस्तकालय/g, 'library')
-      .replace(/कैंटीन|कंटीन|खाना|कैफे/g, 'canteen')
-      .replace(/ऑडिटोरियम|विश्वेश्वरैया|ऑडी/g, 'auditorium')
-      .replace(/मैकेनिकल|मेकैनिकल/g, 'mechanical')
-      .replace(/इलेक्ट्रिकल/g, 'electrical')
-      .replace(/एडमिन|कार्यालय|प्रशासन|फीस/g, 'admin')
-      .replace(/हॉस्टल|टैगोर|गार्गी/g, 'hostel tagore gargi')
-      .replace(/लैब|वर्कशॉप/g, 'lab workshop')
-      .replace(/ब्लॉक/g, 'block')
-      .replace(/डिपार्टमेंट|विभाग/g, 'department')
-      .replace(/स्पोर्ट्स|मैदान|क्रिकेट/g, 'sports cricket')
-      .replace(/गेट|द्वार|मुख्य/g, 'gate main')
-      .replace(/मेडिकल|डिस्पेंसरी|डॉक्टर/g, 'medical dispensary');
-
-    let bestMatch: { location: typeof CAMPUS_LOCATIONS[0]; score: number } | null = null;
-
-    for (const loc of CAMPUS_LOCATIONS) {
-      let score = 0;
-      const nameLower = loc.name.toLowerCase();
-      const buildingLower = loc.building.toLowerCase();
-      const nodeLower = loc.node_id.toLowerCase();
-      const aliasesLower = loc.aliases.map(a => a.toLowerCase());
-
-      if (aliasesLower.some(alias => cleanQuery.includes(alias) || alias.includes(cleanQuery) || normalized.includes(alias))) {
-        score += 80;
-      }
-
-      if (nameLower.includes(cleanQuery) || cleanQuery.includes(nameLower)) {
-        score += 90;
-      }
-
-      const queryTokens = normalized.split(/\s+/).filter(t => t.length > 1);
-      for (const token of queryTokens) {
-        if (nodeLower.includes(token)) score += 35;
-        if (nameLower.includes(token)) score += 30;
-        if (buildingLower.includes(token)) score += 25;
-        if (aliasesLower.some(a => a.includes(token))) score += 30;
-      }
-
-      if (score > (bestMatch?.score || 0)) {
-        bestMatch = { location: loc, score };
-      }
-    }
-
-    if (bestMatch && bestMatch.score >= 25) {
-      const loc = bestMatch.location;
-      setAiResponseText(`${loc.name} (${loc.building}, Floor ${loc.floor}) found! Route highlighted below.`);
+    if (match.matchedLocation) {
+      const loc = match.matchedLocation;
+      setAiResponseText(match.responseText);
       setDestinationNodeIdState(loc.node_id);
       setCurrentRoute(computeDijkstraRoute(startNodeId, loc.node_id, language));
       return;
     }
 
-    setAiResponseText("Could not match that exact location. Try searching for Library, CSE Dept, Auditorium, or Canteen.");
+    setAiResponseText(match.responseText);
   };
 
   const resetNavigation = () => {
